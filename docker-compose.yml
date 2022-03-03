@@ -1,0 +1,40 @@
+# Alfred is needed to execute this project locally
+# Documentation available here -> http://hub.dm.gg/alfred/
+# Download page here -> https://github.com/dailymotion/alfred/releases
+# Execute this following command to import the secrets -> "alfred project secrets import"
+version: '3'
+services:
+
+  mongo:
+    image: mongo:4.2
+    command: -vvv
+    ports:
+      - 27017:27017
+    networks:
+      - ns
+
+  app_1_0_0:
+    build:
+      context: .
+      dockerfile: Dockerfile_1_0_0
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo
+    networks:
+       - ns
+
+  app_1_0_1:
+    build:
+      context: .
+      dockerfile: Dockerfile_1_0_1
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo
+    networks:
+       - ns
+
+networks:
+  ns:
+    driver: bridge

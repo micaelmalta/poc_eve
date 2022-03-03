@@ -1,0 +1,11 @@
+FROM python:3.6
+
+WORKDIR app
+
+RUN pip install pytest werkzeug==0.16.0 Flask==1.1.4 MarkupSafe==2.0.1
+
+RUN pip install eve==1.0.0
+
+COPY . .
+
+CMD pytest -s test.py
